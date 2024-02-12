@@ -7,14 +7,14 @@
 <button onclick="getLocation()">ABSEN MASUK</button>
 
 <p id="demo"></p>
+<div id="result"></div>
 <div id="reader" width="600px"></div>
 
-<div style="width: 500px" id="reader"></div>
 
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
 const x = document.getElementById("demo");
-const camreasContainer = document.getElementById("cameras");
+const resultContainer = document.getElementById("result");
 
 const latitude1 = -6.308486805414364;
 const longitude1 = 106.72586182495347;
@@ -39,12 +39,12 @@ function showPosition(position) {
 function onScanSuccess(decodedText, decodedResult) {
     // Handle on success condition with the decoded text or result.
     console.log(`Scan result: ${decodedText}`, decodedResult);
+    resultContainer.innerHTML = `Scan result: ${decodedText}`;
     html5QrcodeScanner.clear();
 }
 
 function onScanError(errorMessage) {
-  alert(errorMessage);
-    // handle on error condition, with error message
+  resultContainer.innerHTML = errorMessage;
 }
 
 var html5QrcodeScanner = new Html5QrcodeScanner(
