@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1>Aplikasi Absen Guru</h1>
+<!--<h1>Aplikasi Absen Guru</h1>-->
 <p>Tekan Tombol <strong>ABSEN</strong> untuk kehadiran</p>
 
 <button onclick="getLocation()">ABSEN MASUK</button>
 
 <p id="demo"></p>
 <div id="result"></div>
-<div id="reader" width="600px"></div>
+<div id="reader" width="800px"></div>
+<div id="button-camera"></div>
 
 
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 <script>
 const x = document.getElementById("demo");
 const resultContainer = document.getElementById("result");
+const buttonContainer = document.getElementById("button-camera");
 
 const latitude1 = -6.308486805414364;
 const longitude1 = 106.72586182495347;
@@ -25,14 +27,14 @@ function getLocation() {
   } else { 
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
+  getListCamera();
+
   html5QrcodeScanner.render(onScanSuccess, onScanError);  
 }
 
 function showPosition(position) {
   var range = showRange(latitude1, longitude1, position.coords.latitude, position.coords.longitude);
-  x.innerHTML = "Latitude: " + position.coords.latitude + 
-  "<br>Longitude: " + position.coords.longitude + 
-  "<br>Jarak: " + range;
+  x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude + "<br>Jarak: " + range;
 }
 
 
@@ -47,9 +49,37 @@ function onScanError(errorMessage) {
   resultContainer.innerHTML = errorMessage;
 }
 
+let config = {
+    fps: 10, 
+    qrbox: 800,
+    rememberLastUsedCamera: true,
+    supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+}
+
 var html5QrcodeScanner = new Html5QrcodeScanner(
-	"reader", { fps: 10, qrbox: 250 }
+	"reader", 
+    config,
+    /* verbose= */ false
 );
+
+function getListCamera() {
+    // This method will trigger user permissions
+    Html5Qrcode.getCameras().then(devices => {
+        /**
+         * devices would be an array of objects of type:
+         * { id: "id", label: "label" }
+         */
+        if (devices && devices.length) {
+            devices.forEach(renderButton);
+        }
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
+function renderButton(item, index) {
+    buttonContainer.appendChild('<button onclick="scan(' + item.id  + ')">' + item.label  + '</button>');
+}
 
 
 function showRange(lat1, lon1, lat2, lon2)
