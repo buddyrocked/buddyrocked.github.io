@@ -78,7 +78,9 @@ function getListCamera() {
 }
 
 function renderButton(item, index) {
-    buttonContainer.appendChild('<div><button onclick="scan(' + item.id  + ')">' + item.label  + '</button></div>');
+    var z = document.createElement('div'); // is a node
+    z.innerHTML = '<div><button onclick="scan(' + item.id  + ')">' + item.label  + '</button></div>';
+    buttonContainer.appendChild(z);
 }
 
 
