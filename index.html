@@ -21,13 +21,14 @@ const buttonContainer = document.getElementById("button-camera");
 const latitude1 = -6.308486805414364;
 const longitude1 = 106.72586182495347;
 
+getListCamera();
+
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
   } else { 
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
-  getListCamera();
 
   html5QrcodeScanner.render(onScanSuccess, onScanError);  
 }
