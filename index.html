@@ -19,10 +19,12 @@
             #reader {
                 width: 100%;
                 min-height: 250px;
-                background: #f6f5f5;
+                background: transparent;
                 margin-bottom: 30px;
                 text-align: center !important;
                 vertical-align: auto;
+                border: 2px solid #ffc107;
+                border-radius: 5px;
             }
 
             a {
@@ -31,6 +33,10 @@
 
             #reader > div > img {
                 display: none !important;
+            }
+
+            #time {
+                color: #fff;
             }
 
             #html5-qrcode-button-camera-stop {
@@ -65,17 +71,28 @@
                                         </div>
                                         <div class="col-12">&nbsp;</div>
                                         <div class="col-12 text-white text-center text-bold"></div>
-                                        <div class="col-12">&nbsp;</div>
                                         <div class="col-12">
-                                            <div id="reader" width="800px" height="300px">
-                                                <!--<svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" fill="#ffc107" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>-->
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div id="reader"></div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="row">
+                                                        <div class="col-12 text-center">
+                                                            <h1 id="time">00:00</h1>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="d-grid gap-2">
+                                                        <button onclick="getLocation()" class="btn btn-warning btn-lg btn-block text-white fw-bold">MULAI ABSEN KELAS</button>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <p id="demo"></p>
+                                                    <div id="result"></div>
+                                                </div>
                                             </div>
-                                            <div class="d-grid gap-2">
-                                                <button onclick="getLocation()" class="btn btn-warning btn-lg btn-block">MULAI ABSEN KELAS</button>
-                                            </div>
-
-                                            <p id="demo"></p>
-                                            <div id="result"></div>
                                         </div>
                                         <div class="col-12 pt-5">
                                             <div class="alert alert-light" role="alert">
@@ -117,7 +134,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12">&nbsp;</div>
-                                        <div class="col-12 text-white">
+                                        <!--<div class="col-12 text-white">
                                             <div class="text-bold text-sm text-center pb-4">Hubungi Kami</div>
                                             <div class="row">
                                                 <div class="col-12">
@@ -133,7 +150,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
                             </div>
@@ -152,9 +169,18 @@
             const resultContainer = document.getElementById("result");
             const buttonContainer = document.getElementById("button-camera");
             const readerContainer = document.getElementById("reader");
+            const timeContainer   = document.getElementById("time"); 
 
             const latitude1 = -6.308486805414364;
             const longitude1 = 106.72586182495347;
+
+            setInterval((runTime), 1000);
+
+            function runTime() {
+                a = new Date();
+                time = a.getHours() + ':' + a.getMinutes();
+                timeContainer.innerHTML = time;
+            }
 
 
             function scanQrCode(cameraId) {
@@ -183,8 +209,8 @@
                 resultContainer.innerHTML = `Scan result: ${decodedText}`;
                 html5QrcodeScanner.clear();
                 readerContainer.style.backgroundColor = "#32642d";
-                readerContainer.innerHTML = '<div><svg xmlns="http://www.w3.org/2000/svg"  width="250" height="250" fill="#ffc107" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></div>';
-                
+                //readerContainer.innerHTML = '<div><svg xmlns="http://www.w3.org/2000/svg"  width="250" height="250" fill="#ffc107" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></div>';
+                readerContainer.innerHTML = 'TEST';
             }
 
             function onScanError(errorMessage) {
