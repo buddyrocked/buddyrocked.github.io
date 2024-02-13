@@ -21,6 +21,8 @@
                 min-height: 250px;
                 background: #f6f5f5;
                 margin-bottom: 30px;
+                text-align: center !important;
+                vertical-align: auto;
             }
 
             a {
@@ -147,6 +149,7 @@
             const x = document.getElementById("demo");
             const resultContainer = document.getElementById("result");
             const buttonContainer = document.getElementById("button-camera");
+            const readerContainer = document.getElementById("reader");
 
             const latitude1 = -6.308486805414364;
             const longitude1 = 106.72586182495347;
@@ -176,11 +179,13 @@
                 // Handle on success condition with the decoded text or result.
                 console.log(`Scan result: ${decodedText}`, decodedResult);
                 resultContainer.innerHTML = `Scan result: ${decodedText}`;
+                readerContainer.style.backgroundColor = "#32642d";
+                readerContainer.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>';
                 html5QrcodeScanner.clear();
             }
 
             function onScanError(errorMessage) {
-            resultContainer.innerHTML = errorMessage;
+                //resultContainer.innerHTML = errorMessage;
             }
 
             let config = {
