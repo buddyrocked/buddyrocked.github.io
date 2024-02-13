@@ -25,6 +25,27 @@
                 vertical-align: auto;
                 border: 2px solid #ffc107;
                 border-radius: 5px;
+                display: none;
+            }
+
+            #init-absen {
+                width: 100%;
+                height: 250px;
+                background: transparent;
+                margin-bottom: 30px;
+                text-align: center !important;
+                vertical-align: auto;
+                display: block;
+            }
+
+            #success-absen {
+                width: 100%;
+                height: 250px;
+                background: transparent;
+                margin-bottom: 30px;
+                text-align: center !important;
+                vertical-align: auto;
+                display: none;
             }
 
             a {
@@ -74,6 +95,18 @@
                                         <div class="col-12">
                                             <div class="row">
                                                 <div class="col-12">
+                                                    <div id="init-absen">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"  width="250" height="250" fill="#ffc107" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
+                                                            <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
+                                                            <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
+                                                            <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
+                                                            <path d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
+                                                            <path d="M12 9h2V8h-2z"/>
+                                                          </svg>
+                                                    </div>
+                                                    <div id="success-absen">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"  width="250" height="250" fill="#ffc107" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                                                    </div>   
                                                     <div id="reader"></div>
                                                 </div>
                                                 <div class="col-12">
@@ -169,7 +202,9 @@
             const resultContainer = document.getElementById("result");
             const buttonContainer = document.getElementById("button-camera");
             const readerContainer = document.getElementById("reader");
-            const timeContainer   = document.getElementById("time"); 
+            const timeContainer   = document.getElementById("time");
+            const initContainer   = document.getElementById("init-absen"); 
+            const successContainer   = document.getElementById("success-absen"); 
 
             const latitude1 = -6.308486805414364;
             const longitude1 = 106.72586182495347;
@@ -188,6 +223,8 @@
             }
 
             function getLocation() {
+                initContainer.style.display = "none";
+                readerContainer.style.display = "block";
                 html5QrcodeScanner.render(onScanSuccess, onScanError);  
             }
 
@@ -207,10 +244,8 @@
                 // Handle on success condition with the decoded text or result.
                 console.log(`Scan result: ${decodedText}`, decodedResult);
                 resultContainer.innerHTML = `Scan result: ${decodedText}`;
-                html5QrcodeScanner.clear();
-                readerContainer.style.backgroundColor = "#32642d";
-                //readerContainer.innerHTML = '<div><svg xmlns="http://www.w3.org/2000/svg"  width="250" height="250" fill="#ffc107" class="bi bi-check-circle-fill" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg></div>';
-                readerContainer.innerHTML = 'TEST';
+                readerContainer.style.display = "none";
+                successContainer.style.display = "block";
             }
 
             function onScanError(errorMessage) {
