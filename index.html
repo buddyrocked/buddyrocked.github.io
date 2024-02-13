@@ -30,6 +30,10 @@
             #reader > div > img {
                 display: none !important;
             }
+
+            #html5-qrcode-button-camera-stop {
+
+            }
         </style>
     </head>
     <body class="sidebar-mini layout-fixed body-login mobile-view" style="height: auto;">
@@ -158,7 +162,8 @@
 
             function showPosition(position) {
                 var range = showRange(latitude1, longitude1, position.coords.latitude, position.coords.longitude);
-                x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude + "<br>Jarak: " + range;
+                var link = "<a href='https://www.google.com/search?q=" + position.coords.latitude + "%2C+" + position.coords.longitude + "' target='_blank'>Anda melakukan absen disini</a>";
+                x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude + "<br>Jarak: " + range + "<br>" + link;
             }
 
             function onScanSuccess(decodedText, decodedResult) {
